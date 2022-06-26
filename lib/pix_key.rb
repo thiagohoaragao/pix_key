@@ -18,6 +18,30 @@ class PixKey
   def value
     '' if invalid?
   end
+
+  def key
+  end
+
+  def to_s
+  end
+
+  def phone?
+  end
+
+  def cpf?
+  end
+
+  def email?
+  end
+
+  def cnpj?
+  end
+
+  def evp?
+  end
+
+  def type
+  end
 end
 
 #email regex
@@ -25,8 +49,3 @@ end
 
 #cpf regex
 #/^[0-9]{11}$/i
-
-
-# def valid?
-#     @key.match?(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i)
-#   end
