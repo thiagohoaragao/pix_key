@@ -69,7 +69,7 @@ class PixKey
     end
   end
 
-  def ==
-    true
+  def ==(obj)
+    value == obj
   end
 end
