@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class PixKey
 
   def initialize(pix_key)
@@ -10,8 +9,6 @@ class PixKey
     validation = /(^[0-9]{11}$|^[0-9]{14}$|^\+[1-9][0-9]\d{1,14}$|^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
     if @pix_key.to_s.match?(validation) && @pix_key.class == String
       true
-    else
-      false
     end
   end
 
@@ -69,7 +66,7 @@ class PixKey
     end
   end
 
-  def ==(obj)
-    value == obj
+  def ==(other)
+    self.class == other.class && self.value == other.value
   end
 end
