@@ -1,61 +1,58 @@
 # frozen_string_literal: true
 
 class PixKey
-  attr_reader :key
 
-  def initialize(key)
-    @key = key
+  def initialize(pix_key)
+    @pix_key = pix_key.strip if pix_key.class == String
   end
 
   def valid?
     validation = /(^[0-9]{11}$|^[0-9]{14}$|^\+[1-9][0-9]\d{1,14}$|^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
-    @key.match?(validation)
-  end
-
-  def invalid?
-    if @key.class != String
+    if @pix_key.to_s.match?(validation) && @pix_key.class == String
       true
-    elsif valid?
-      false
     else
-      true
+      false
     end
   end
 
+  def invalid?
+    valid? ? false : true
+  end
+
   def value
-    if invalid?
-      ''
+    if valid?
+      @pix_key.freeze
     else
-      @key
+     ''
     end
   end
 
   def key
-    value
+    @pix_key.freeze
   end
 
   def to_s
-    @key.to_s
+    value.to_s
   end
 
   def phone?
-    @key.match?(/^\+[1-9][0-9]\d{1,14}$/i)
+    @pix_key.match?(/^\+[1-9][0-9]\d{1,14}$/i)
   end
 
   def cpf?
-    @key.match?(/^[0-9]{11}$/i)
+    @pix_key.match?(/^[0-9]{11}$/i)
   end
 
   def email?
-    @key.match?(/^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$/i)
+    @pix_key.match?(/^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$/i)
   end
 
   def cnpj?
-    @key.match?(/^[0-9]{14}$/i)
+    @pix_key.match?(/^[0-9]{14}$/i)
   end
 
   def evp?
-    @key.match?(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)
+    @pix_key.match?(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i)
   end
 
   def type
@@ -72,7 +69,7 @@ class PixKey
     end
   end
 
-  def ==(key)
-    @key.uniq
+  def ==
+    true
   end
 end
