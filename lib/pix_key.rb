@@ -7,7 +7,7 @@ class PixKey
 
   def valid?
     validation = /(^[0-9]{11}$|^[0-9]{14}$|^\+[1-9][0-9]\d{1,14}$|^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
-    if @pix_key.to_s.match?(validation) && @pix_key.class == String
+    if @pix_key.to_s.match?(validation)
       true
     end
   end
@@ -53,17 +53,11 @@ class PixKey
   end
 
   def type
-    if phone?
-      'phone'
-    elsif cpf?
-      'cpf'
-    elsif email?
-      'email'
-    elsif cnpj?
-      'cnpj'
-    else
-      'evp'
-    end
+    return 'phone' if phone?
+    return'cpf' if cpf?
+    return 'email' if email?
+    return 'cnpj' if cnpj?
+    return 'evp' if evp?
   end
 
   def ==(other)
