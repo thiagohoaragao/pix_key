@@ -7,9 +7,7 @@ class PixKey
 
   def valid?
     validation = /(^[0-9]{11}$|^[0-9]{14}$|^\+[1-9][0-9]\d{1,14}$|^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
-    if @pix_key.to_s.match?(validation)
-      true
-    end
+    true if @pix_key.to_s.match?(validation)
   end
 
   def invalid?
@@ -17,11 +15,7 @@ class PixKey
   end
 
   def value
-    if valid?
-      @pix_key.freeze
-    else
-     ''
-    end
+    valid? ? @pix_key.freeze : ''
   end
 
   def key
