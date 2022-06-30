@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 class PixKey
-
   def initialize(pix_key)
-    @pix_key = pix_key.to_s.strip
+    @pix_key = pix_key.to_s.strip.freeze
   end
 
   def valid?
@@ -14,7 +13,7 @@ class PixKey
   end
 
   def value
-    valid? ? @pix_key.freeze : ''
+    valid? ? @pix_key : ''
   end
 
   alias key value
@@ -42,7 +41,7 @@ class PixKey
 
   def type
     return 'phone' if phone?
-    return'cpf' if cpf?
+    return 'cpf' if cpf?
     return 'email' if email?
     return 'cnpj' if cnpj?
     return 'evp' if evp?
