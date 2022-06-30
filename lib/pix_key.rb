@@ -2,17 +2,15 @@
 class PixKey
 
   def initialize(pix_key)
-    @pix_key = pix_key.strip if pix_key.class == String
+    @pix_key = pix_key.to_s.strip
   end
 
   def valid?
-    # validation = [phone?, email?, cpf?, evp?, cnpj?].any?
-    validation = /(^[0-9]{11}$|^[0-9]{14}$|^\+[1-9][0-9]\d{1,14}$|^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
-    true if @pix_key.to_s.match?(validation)
+    [phone?, cpf?, email?, cnpj?, evp?].any?
   end
 
   def invalid?
-    valid? ? false : true
+    !valid?
   end
 
   def value
