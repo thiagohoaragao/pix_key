@@ -6,6 +6,7 @@ class PixKey
   end
 
   def valid?
+    # validation = [phone?, email?, cpf?, evp?, cnpj?].any?
     validation = /(^[0-9]{11}$|^[0-9]{14}$|^\+[1-9][0-9]\d{1,14}$|^[a-z0-9.]+@[a-z0-9]+.[a-z]+(.[a-z]+)?$|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/
     true if @pix_key.to_s.match?(validation)
   end
@@ -18,13 +19,8 @@ class PixKey
     valid? ? @pix_key.freeze : ''
   end
 
-  def key
-    @pix_key.freeze
-  end
-
-  def to_s
-    value.to_s
-  end
+  alias key value
+  alias_method :to_s, :value
 
   def phone?
     @pix_key.match?(/^\+[1-9][0-9]\d{1,14}$/i)
